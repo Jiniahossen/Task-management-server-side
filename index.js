@@ -84,6 +84,20 @@ async function run() {
 
 
 
+        //update product
+
+        app.patch('/tasks/:id', async (req, res) => {
+            const {id}=req.params;
+            const filter = { _id: new ObjectId(id) };
+            const updatedTask = req.body;
+            const updateDoc = {
+                $set: {
+                    ...updatedTask,
+                },
+            };
+            const result = await taskCollection.updateOne(filter, updateDoc);
+            res.send(result);
+        })
 
 
         // Send a ping to confirm a successful connection
